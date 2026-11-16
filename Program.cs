@@ -45,7 +45,9 @@ int ej = 0;
 
 do{
     Console.WriteLine();
-    Console.WriteLine("Ejercicios de Delegados.");
+    Console.WriteLine("--- Ejercicios de Delegados ---");
+    Console.WriteLine();
+
     Console.WriteLine("Ejercicio 1: Delegado Básico");
     Console.WriteLine("Ejercicio 2: Múltiples Métodos");
     Console.WriteLine("Ejercicio 3: Uso de Multicast Delegates");
@@ -76,7 +78,7 @@ void Ejercicio1()
     Console.Write("Introduce otro numero: ");
     int num2 = Convert.ToInt32(Console.ReadLine());
 
-    Operacion op = Sumar;
+    Operacion op = Operadores.Sumar;
 
     Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
 
@@ -105,11 +107,11 @@ void Ejercicio2(){
 
     switch (type){
         case 1:
-            op = Sumar;
+            op = Operadores.Sumar;
             Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
             break;
         case 2:
-            op = Restar;
+            op = Operadores.Restar;
             Console.WriteLine($"El resutado de la resta de {num1} - {num2} es {op(num1, num2)}");
             break;
         default:
@@ -121,9 +123,9 @@ void Ejercicio2(){
 
 void Ejercicio3()
 {
-    Console.WriteLine("");
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 3 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
 
     Console.WriteLine("1. Sumar");
     Console.WriteLine("2. Restar");
@@ -145,15 +147,15 @@ void Ejercicio3()
     switch (type)
     {
         case 1:
-            op = Sumar;
+            op = Operadores.Sumar;
             Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
             break;
         case 2:
-            op = Restar;
+            op = Operadores.Restar;
             Console.WriteLine($"El resutado de la resta de {num1} - {num2} es {op(num1, num2)}");
             break;
         case 3:
-            op = Multiplicar;
+            op = Operadores.Multiplicar;
             Console.WriteLine($"El resutado de la Multiplicación es {num1} * {num2} es {op(num1, num2)}");
             break;
         default:
@@ -164,9 +166,9 @@ void Ejercicio3()
 }
 void Ejercicio4()
 {
-    Console.WriteLine("");
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 4 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
 
     Console.WriteLine("1. Sumar");
     Console.WriteLine("2. Restar");
@@ -190,19 +192,19 @@ void Ejercicio4()
     switch (type)
     {
         case 1:
-            op = Sumar;
+            op = Operadores.Sumar;
             Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
             break;
         case 2:
-            op = Restar;
+            op = Operadores.Restar;
             Console.WriteLine($"El resutado de la resta de {num1} - {num2} es {op(num1, num2)}");
             break;
         case 3:
-            op = Multiplicar;
+            op = Operadores.Multiplicar;
             Console.WriteLine($"El resutado de la Multiplicación es {num1} * {num2} es {op(num1, num2)}");
             break;
         case 4:
-            op = Dividir;
+            op = Operadores.Dividir;
             Console.WriteLine($"El resutado de la División es {num1} / {num2} es {op(num1, num2)}");
             break;
         default:
@@ -227,13 +229,13 @@ void Ejercicio5()
 
     Console.WriteLine();
     Console.WriteLine("Usando Sumar:");
-    Calcular(Sumar, num1, num2);
+    Calcular(Operadores.Sumar, num1, num2);
 
     Console.WriteLine("Usando Restar:");
-    Calcular(Restar, num1, num2);
+    Calcular(Operadores.Restar, num1, num2);
 
     Console.WriteLine("Usando Multiplicar:");
-    Calcular(Multiplicar, num1, num2);
+    Calcular(Operadores.Multiplicar, num1, num2);
 
     void Calcular(Operacion op, int num1, int num2)
     {
@@ -248,9 +250,9 @@ void Ejercicio6()
     Console.WriteLine("--- Ejercicio 6 ---");
     Console.WriteLine();
 
-    Operar operaciones = Sumar;
-    operaciones += Restar;
-    operaciones += Multiplicar;
+    Operar operaciones = Operadores.Sumar;
+    operaciones += Operadores.Restar;
+    operaciones += Operadores.Multiplicar;
 
     Console.Write("Introduce un numero: ");
     int num1 = Convert.ToInt32(Console.ReadLine());
@@ -259,66 +261,118 @@ void Ejercicio6()
     int num2 = Convert.ToInt32(Console.ReadLine());
     Console.WriteLine();
 
-    foreach (Operar operacion in operaciones.GetInvocationList()){
+    foreach (Operar op in operaciones.GetInvocationList()){
         
-        int resultado = operacion(num1, num2);
+        int resultado = op(num1, num2);
 
-        string nombre = operacion.Method.Name;
+        string nombre = op.Method.Name;
 
+        Console.WriteLine($"Metodo {nombre}({num1},{num2}) Resultado: {resultado}");
+    }
+}
+void Ejercicio7()
+{
+    Console.WriteLine();
+    Console.WriteLine("--- Ejercicio 7 ---");
+    Console.WriteLine();
+
+    Console.Write("Cuantos numeros vas a introducir: ");
+    int n = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    int[] numeros = new int[n];
+    for (int i = 0; i < n; i++){
+        Console.Write($"Numero {i + 1}: ");
+        numeros[i] = Convert.ToInt32(Console.ReadLine());
+    }
+    Console.WriteLine();
+
+    OperarArray operaciones = Operadores.SumarArray;
+    operaciones += Operadores.MultiplicarArray;
+
+    foreach (OperarArray op in operaciones.GetInvocationList()){
+        int resultado = op(numeros);
+        string nombre = op.Method.Name;
         Console.WriteLine($"Metodo {nombre} Resultado: {resultado}");
     }
 
 }
-void Ejercicio7()
-{
-    Console.WriteLine("");
-    Console.WriteLine("--- Ejercicio 7 ---");
-    Console.WriteLine("");
 
-}
-
-void Ejercicio8()
-{
-    Console.WriteLine("");
+void Ejercicio8(){
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 8 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
+
+    Console.Write("Introduce un numero: ");
+    int num = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    Transformar transformar = Operadores.Doblar;
+    transformar += Operadores.Triplicar;
+    transformar += Operadores.Cuadrado;
+
+    foreach (Transformar trans in transformar.GetInvocationList()){
+        int resultado = trans(num);
+        string nombre = trans.Method.Name;
+        Console.WriteLine($"Metodo {nombre}({num}) = {resultado}");
+    }
 
 }
 
-void Ejercicio9()
-{
-    Console.WriteLine("");
+void Ejercicio9(){
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 9 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
 
+    Console.Write("Introduce un numero: ");
+    int num1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduce un numero: ");
+    int num2 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    Console.WriteLine($"Suma:           {EjecutarOperacion(Operadores.Sumar, num1, num2)}");
+    Console.WriteLine($"Resta:          {EjecutarOperacion(Operadores.Restar, num1, num2)}");
+    Console.WriteLine($"Multiplicacion: {EjecutarOperacion(Operadores.Multiplicar, num1, num2)}");
+
+    int EjecutarOperacion(OperacionCallback op, int a, int b) => op(a, b);
 }
 
-void Ejercicio10()
-{
-    Console.WriteLine("");
+void Ejercicio10(){
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 10 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
+
+
 
 }
 
-int Sumar(int a, int b)
+
+public static class Operadores
 {
-    return a + b;
+    public static int Sumar(int a, int b) => a + b;
+    public static int Restar(int a, int b) => a - b;
+    public static int Multiplicar(int a, int b) => a * b;
+    public static int Dividir(int a, int b) => b == 0 ? 0 : a / b;
+    public static int SumarArray(int[] num){
+        int rest = 0;
+        foreach (int n in num) rest += n;
+        return rest;
+    }
+    public static int MultiplicarArray(int[] num){
+        int rest = 1;
+        foreach (int n in num) rest *= n;
+        return rest;
+    }
+    public static int Doblar(int n) => n * 2;
+    public static int Triplicar(int n) => n * 3;
+    public static int Cuadrado(int n) => n * n;
 }
 
-int Restar(int a, int b)
-{
-    return a - b;
-}
-
-int Multiplicar(int a, int b){
-    return a * b;
-}
-
-int Dividir(int a, int b){
-    if (b == 0) return 0;
-    else return a / b;
-}
 
 public delegate int Operacion(int a, int b);
 public delegate int Operar(int a, int b);
+public delegate int OperarArray(int[] array);
+public delegate int Transformar(int a);
+public delegate int OperacionCallback(int a, int b);
+public delegate double Calculo(double n);
