@@ -125,6 +125,42 @@ void Ejercicio3()
     Console.WriteLine("--- Ejercicio 3 ---");
     Console.WriteLine("");
 
+    Console.WriteLine("1. Sumar");
+    Console.WriteLine("2. Restar");
+    Console.WriteLine("3. Multiplicación");
+
+    Console.WriteLine();
+    Console.Write("Que Operación vas a realizar: ");
+    int type = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine();
+    Console.Write("Introduce un numero: ");
+    int num1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduce otro numero: ");
+    int num2 = Convert.ToInt32(Console.ReadLine());
+
+    Operacion op;
+
+    switch (type)
+    {
+        case 1:
+            op = Sumar;
+            Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
+            break;
+        case 2:
+            op = Restar;
+            Console.WriteLine($"El resutado de la resta de {num1} - {num2} es {op(num1, num2)}");
+            break;
+        case 3:
+            op = Multiplicar;
+            Console.WriteLine($"El resutado de la Multiplicación es {num1} * {num2} es {op(num1, num2)}");
+            break;
+        default:
+            Console.WriteLine($"No exite esa operación");
+            break;
+    }
+
 }
 void Ejercicio4()
 {
@@ -189,6 +225,10 @@ int Sumar(int a, int b)
 int Restar(int a, int b)
 {
     return a - b;
+}
+
+int Multiplicar(int a, int b){
+    return a * b;
 }
 
 public delegate int Operacion(int a, int b);
