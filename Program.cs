@@ -78,7 +78,7 @@ void Ejercicio1()
 
     Operacion op = Sumar;
 
-    Console.WriteLine($"El reustado de la suma de {num1} + {num2} es {op(num1, num2)}");
+    Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
 
 }
 
@@ -168,21 +168,105 @@ void Ejercicio4()
     Console.WriteLine("--- Ejercicio 4 ---");
     Console.WriteLine("");
 
+    Console.WriteLine("1. Sumar");
+    Console.WriteLine("2. Restar");
+    Console.WriteLine("3. Multiplicación");
+    Console.WriteLine("4. División");
+
+    Console.WriteLine();
+    Console.Write("Que Operación vas a realizar: ");
+    int type = Convert.ToInt32(Console.ReadLine());
+
+    Console.WriteLine();
+    Console.Write("Introduce un numero: ");
+    int num1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduce otro numero: ");
+    int num2 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    Operacion op;
+
+    switch (type)
+    {
+        case 1:
+            op = Sumar;
+            Console.WriteLine($"El resutado de la suma de {num1} + {num2} es {op(num1, num2)}");
+            break;
+        case 2:
+            op = Restar;
+            Console.WriteLine($"El resutado de la resta de {num1} - {num2} es {op(num1, num2)}");
+            break;
+        case 3:
+            op = Multiplicar;
+            Console.WriteLine($"El resutado de la Multiplicación es {num1} * {num2} es {op(num1, num2)}");
+            break;
+        case 4:
+            op = Dividir;
+            Console.WriteLine($"El resutado de la División es {num1} / {num2} es {op(num1, num2)}");
+            break;
+        default:
+            Console.WriteLine($"No exite esa operación");
+            break;
+    }
+
 }
 
 void Ejercicio5()
 {
-    Console.WriteLine("");
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 5 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
+
+    Console.Write("Introduce un numero: ");
+    int num1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduce otro numero: ");
+    int num2 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    Console.WriteLine();
+    Console.WriteLine("Usando Sumar:");
+    Calcular(Sumar, num1, num2);
+
+    Console.WriteLine("Usando Restar:");
+    Calcular(Restar, num1, num2);
+
+    Console.WriteLine("Usando Multiplicar:");
+    Calcular(Multiplicar, num1, num2);
+
+    void Calcular(Operacion op, int num1, int num2)
+    {
+        Console.WriteLine($"Resultado: {op(num1, num2)}");
+    }
 
 }
 
 void Ejercicio6()
 {
-    Console.WriteLine("");
+    Console.WriteLine();
     Console.WriteLine("--- Ejercicio 6 ---");
-    Console.WriteLine("");
+    Console.WriteLine();
+
+    Operar operaciones = Sumar;
+    operaciones += Restar;
+    operaciones += Multiplicar;
+
+    Console.Write("Introduce un numero: ");
+    int num1 = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Introduce otro numero: ");
+    int num2 = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine();
+
+    foreach (Operar operacion in operaciones.GetInvocationList()){
+        
+        int resultado = operacion(num1, num2);
+
+        string nombre = operacion.Method.Name;
+
+        Console.WriteLine($"Metodo {nombre} Resultado: {resultado}");
+    }
 
 }
 void Ejercicio7()
@@ -231,4 +315,10 @@ int Multiplicar(int a, int b){
     return a * b;
 }
 
+int Dividir(int a, int b){
+    if (b == 0) return 0;
+    else return a / b;
+}
+
 public delegate int Operacion(int a, int b);
+public delegate int Operar(int a, int b);
