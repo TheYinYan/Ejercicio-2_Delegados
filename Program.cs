@@ -343,8 +343,29 @@ void Ejercicio10(){
     Console.WriteLine("--- Ejercicio 10 ---");
     Console.WriteLine();
 
+    Calculo op = Operadores.RaizCuadrada;
+    op += Operadores.Logaritmo;
 
+    Console.Write("Introduce un numero: ");
+    double num = Convert.ToDouble(Console.ReadLine());
 
+    Console.WriteLine();
+    Console.WriteLine($"Raiz cuadrada de {num}:");
+    EjecutarCalculo(Operadores.RaizCuadrada, num);
+    
+    Console.WriteLine();
+    Console.WriteLine($"Logaritmo de {num}:");
+    EjecutarCalculo(Operadores.Logaritmo, num);
+
+    void EjecutarCalculo(Calculo calc, double n){
+        try{
+            double resultado = calc(n);
+            Console.WriteLine($"Resultado: {resultado}");
+        }catch (ArgumentException ex){
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+    ;
 }
 
 
@@ -367,6 +388,17 @@ public static class Operadores
     public static int Doblar(int n) => n * 2;
     public static int Triplicar(int n) => n * 3;
     public static int Cuadrado(int n) => n * n;
+    public static double RaizCuadrada(double n) {
+        if (n < 0)
+            throw new ArgumentException("No se puede calcular la raiz cuadrada de un numero negativo.");
+        return Math.Sqrt(n);
+    }
+
+    public static double Logaritmo(double n) {
+        if (n <= 0)
+            throw new ArgumentException("El logaritmo solo esta definido para numeros positivos.");
+        return Math.Log(n);
+    }
 }
 
 
